@@ -1,0 +1,24 @@
+version: "2.2"
+
+services:
+  nginx:
+    image: rakeshpotnuru/productivity-app:nginx-latest
+    restart: always
+    depends_on:
+      - client
+      - server
+    ports:
+      - "80:80"
+
+  client:
+    image: rakeshpotnuru/productivity-app:client-latest
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - REACT_APP_BACKEND_URL=http://localhost:5000/api
+  server:
+    image: rakeshpotnuru/productivity-app:server-latest
+    environment:
+      - MONGODB_URI=mongodb+srv://reddi16181:SNVdTWYGmc8AxOtG@cluster0.jjjgtqv.mongodb.net/?retryWrites=true&w=majority
+      - TOKEN_KEY=tango
+      - EMAIL=reddi1618@gmail.com
+      - PASSWORD=tango
